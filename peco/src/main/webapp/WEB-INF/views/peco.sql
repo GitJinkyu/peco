@@ -244,9 +244,63 @@ REFERENCES Board (
 	bno
 );
 
+create sequence seq_board;
 
+create sequence seq_member;
 
 
 select bno,title,content,writer,visitcount,DECODE(TRUNC(sysdate), TRUNC(regdate), TO_CHAR(regdate, 'HH24:MI:SS'), TO_CHAR(regdate, 'YYYY-MM-DD')) AS regdate, updatedate 
 	from board
-	order by bno desc 
+	order by bno desc ;
+
+
+insert into board (bno, title, content, m_id) values (seq_board.nextval,'우리강아지','귀엽죠?','m_00002');
+insert into board (bno, title, content, m_id) values (seq_board.nextval,'사료 나눔 해주실분?','사료가 다 떨어졌어요','m_00003');
+insert into board (bno, title, content, m_id) values (seq_board.nextval,'시바견 키우시는분 있나요..','너무 힘드네요','m_00004');
+insert into board (bno, title, content, m_id) values (seq_board.nextval,'강아지 교육시키는법','어케하나요','m_00005');
+
+
+-- M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE 컬럼을 가지는 member 테이블이 있다고 가정합니다.
+
+-- 더미 데이터 5개를 삽입합니다.
+
+-- LPAD 함수를 사용하여 m_00001 형태의 회원번호를 생성하고 더미 데이터를 삽입합니다.
+INSERT INTO member (M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE)
+VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user1', '1234', '김진규', '진규짱', 30, 'john.doe@example.com', '1234567890');
+
+INSERT INTO member (M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE)
+VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user2', '1234', '허윤빈', '윤빈짱', 25, 'jane.smith@example.com', '9876543210');
+
+INSERT INTO member (M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE)
+VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user3', '1234', '안태영', '태영짱', 35, 'michael.johnson@example.com', '5555555555');
+
+INSERT INTO member (M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE)
+VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user4', '1234', '김지아', '지아짱', 28, 'emily.brown@example.com', '1111111111');
+
+INSERT INTO member (M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE)
+VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user5', '1234', '김솔이', '솔이짱', 32, 'william.lee@example.com', '9999999999');
+
+INSERT INTO member (M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE)
+VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user6', '1234', '정승진', '승진짱', 32, 'tmdwlsaos@example.com', '9999999999');
+
+
+	    	select bno,title,content,m_id,visitcount 
+				from board
+				order by bno desc ;
+    
+ 	SELECT 
+	    b.bno,
+	    b.title,
+	    b.content,
+	    b.m_id,
+	    b.visitcount,
+	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+	    b.updatedate,
+	    m.nickname
+	FROM 
+	    board b
+	LEFT JOIN 
+	    member m ON b.m_id = m.M_ID
+	ORDER BY 
+	    b.bno DESC ;
+

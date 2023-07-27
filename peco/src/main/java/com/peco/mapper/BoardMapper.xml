@@ -5,9 +5,23 @@
 <mapper namespace="com.peco.mapper.BoardMapper">
 
 	<select id="getList" resultType="com.peco.vo.BoardVO">
-	select bno,title,content,writer,visitcount,DECODE(TRUNC(sysdate), TRUNC(regdate), TO_CHAR(regdate, 'HH24:MI:SS'), TO_CHAR(regdate, 'YYYY-MM-DD')) AS regdate, updatedate 
-	from board
-	order by bno desc 
+ 	SELECT 
+	    b.bno,
+	    b.title,
+	    b.content,
+	    b.m_id,
+	    b.visitcount,
+	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+	    b.updatedate,
+	    m.nickname
+	FROM 
+	    board b
+	LEFT JOIN 
+	    member m ON b.m_id = m.M_ID
+	ORDER BY 
+	    b.bno DESC 
+	    
+
 	</select>
 
 

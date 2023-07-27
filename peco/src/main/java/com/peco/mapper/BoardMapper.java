@@ -8,6 +8,6 @@ import com.peco.vo.BoardVO;
 
 public interface BoardMapper {
 	
-	public List<BoardVO> getList(Model model);
+	public List<BoardVO> getList();
 
 }

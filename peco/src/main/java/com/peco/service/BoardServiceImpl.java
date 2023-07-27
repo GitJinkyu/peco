@@ -18,7 +18,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> getList(Model model) {
 		
-		return mapper.getList(model);
-	}
+		List<BoardVO> list = mapper.getList();
+		
+		model.addAttribute("list",list);
+		System.out.println("보드서비스임플");
+		return list;
 
+	}
+	
 }
