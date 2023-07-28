@@ -284,23 +284,62 @@ INSERT INTO member (M_ID, ID, PW, MNAME, NICKNAME, AGE, EMAIL, MPHONE)
 VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user6', '1234', '정승진', '승진짱', 32, 'tmdwlsaos@example.com', '9999999999');
 
 
-	    	select bno,title,content,m_id,visitcount 
-				from board
-				order by bno desc ;
+create sequence seq_reply;
+
+INSERT INTO reply (r_ID, reply,replyer, bno )
+VALUES ('r_' || LPAD(seq_member.NEXTVAL, 5, '0'), '리플테스트입니다', '진규짱', 5);
+
+
+	select *
+		from(
+				select t.*, rownum rn
+				from (
+						SELECT 
+						    r.r_id,
+						    r.bno,
+						    r.reply,
+						    TO_CHAR(r.regitDate, 'yyyy-MM-dd') AS regitDate,
+						    r.updateDate,
+						    m.nickname
+						FROM
+						    reply r
+						JOIN
+						    board b ON r.bno = b.bno
+						JOIN
+						    member m ON b.m_Id = m.m_Id
+						WHERE
+						    r.bno = 5
+						ORDER BY
+						    r.r_id DESC
+					 ) t
+			)
+	where rn between 1 and 5;
     
- 	SELECT 
-	    b.bno,
-	    b.title,
-	    b.content,
-	    b.m_id,
-	    b.visitcount,
-	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
-	    b.updatedate,
-	    m.nickname
-	FROM 
-	    board b
-	LEFT JOIN 
-	    member m ON b.m_id = m.M_ID
-	ORDER BY 
-	    b.bno DESC ;
+    
+    
+    select *
+		from(
+				select t.*, rownum rn
+				from (
+						SELECT 
+						    r.r_id,
+						    r.bno,
+						    r.reply,
+						    TO_CHAR(r.regitDate, 'yyyy-MM-dd') AS regitDate,
+						    r.updateDate,
+						    m.nickname
+						FROM
+						    reply r
+						JOIN
+						    board b ON r.bno = b.bno
+						JOIN
+						    member m ON b.m_Id = m.m_Id
+						WHERE
+						    r.bno = 5
+						ORDER BY
+						    r.r_id DESC
+
+					 ) t
+			)
+	where rn between 1 and 5
 
