@@ -66,7 +66,7 @@ function getReplyList(page){
 	console.log("page : "+page);
 	
 	//백팃 쓰는법
-	console.log(`/reply/list/${bno}/${page}`);
+	console.log("패치 매핑"+`/reply/list/${bno}/${page}`);
 	
 	fetchGet(`/reply/list/${bno}/${page}`, replyView);
 }
