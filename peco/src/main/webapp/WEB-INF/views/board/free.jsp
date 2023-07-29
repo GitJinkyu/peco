@@ -71,7 +71,16 @@ https://templatemo.com/tm-579-cyborg-gaming
 	}
 	
 </script>
+<script type="text/javascript">
 
+	function requestAction(url, bno){
+		// 폼이름을 확인!
+		searchForm.action = url;
+		searchForm.bno.value = bno;
+		searchForm.submit();
+	}
+	
+</script>
 
   </head>
   
@@ -94,58 +103,66 @@ https://templatemo.com/tm-579-cyborg-gaming
 	<%@include file = "../common/header.jsp" %>
   <!-- ***** Header Area End ***** -->
 
+<div class="container">
+  					
+    <div class="row">
+    				  
+      <div class="col-lg-12">
+        <div class="page-content">
+	        <div class="live-stream">
+	            <div class="col-lg-12">
+	              <div class="heading-section">
+	                <h4><em>힐링짤</em> 게시판</h4>
+	              </div>
+	            </div>
+	            <div class="row">
 
-<script type="text/javascript">
 
-	function requestAction(url, bno){
-		// 폼이름을 확인!
-		searchForm.action = url;
-		searchForm.bno.value = bno;
-		searchForm.submit();
-	}
-	
-</script>
-
-	<div class="container">
-	
-	  <div >
-	    <h1>게시판</h1>
-	    <p class="lead"><b>${sessionScope.userId }</b>님 환영합니다👋👋 </p>
-	    <a class="btn btn-lg btn-primary" href="/board/write?pageNo=${pageDto.cri.pageNo }" role="button">글쓰기 &raquo;</a>
-	  </div>
-	  
-	  <p></p>
-	
-	<%@include file = "../common/searchForm.jsp" %>
-	 
-	  <c:forEach var="board" items="${list}">
-		  <div class="list-group w-auto">
-		 
-		    <a onclick="requestAction('/board/view', ${board.bno })" href="#" >
-		      <div >
-		        <div>
-		          <p>작성자 : ${board.nickname }</p>
-		          <h6>${board.title }</h6>
-		        </div>
-		        등록일 : ${board.regdate }
-		      </div>
-		    </a>
-		  </div>
-	  </c:forEach>
-	  
-	  		<!-- 페이지 불러오기 -->
-			<%@include file = "../common/pageNavi.jsp" %>
-	</div> 
+			  <div >
+			    <h1>게시판</h1>
+			    <p class="lead"><b>${sessionScope.userId }</b>님 환영합니다👋👋 </p>
+			    <a class="btn btn-lg btn-primary" href="/board/write?pageNo=${pageDto.cri.pageNo }" role="button">글쓰기 &raquo;</a>
+			  </div>
+			  
+			  <p></p>
+			
+			<%@include file = "../common/searchForm.jsp" %>
+			 
+			  <c:forEach var="board" items="${list}">
+				  <div class="list-group w-auto">
+				 
+				    <a onclick="requestAction('/board/view', ${board.bno })" href="#" >
+				      <div >
+				        <div>
+				          <p>작성자 : ${board.nickname }</p>
+				          <h6>${board.title }</h6>
+				        </div>
+				        등록일 : ${board.regdate }
+				      </div>
+				    </a>
+				  </div>
+			  </c:forEach>
+			  
+			  		<!-- 페이지 불러오기 -->
+					<%@include file = "../common/pageNavi.jsp" %>
+			</div>
+			
+			
+			
+			</div>
+          </div> 
 
 	
       
       
       
       
-	<!-- cdn방식의 css불러오기 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	
 
-
+       </div>
+      </div>
+    </div>
+  </div>
   
   <footer>
     <div class="container">
@@ -170,6 +187,9 @@ https://templatemo.com/tm-579-cyborg-gaming
   <script src="/resources/assets/js/tabs.js"></script>
   <script src="/resources/assets/js/popup.js"></script>
   <script src="/resources/assets/js/custom.js"></script>
+  
+  <!-- cdn방식의 css불러오기 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 
   </body>

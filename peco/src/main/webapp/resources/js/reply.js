@@ -95,15 +95,15 @@ function replyView(map){
 						+ '    <tr id="tr'+reply.rno+'" data-value="'+reply.reply+'">                                    '
 						+ '      <th scope="row">'+reply.rno+'</th>                '
 						+ '      <td class="text-start">'+reply.reply
-if(userId == reply.replyer){
+if(reply.nickname == reply.nickname){
 		replyDivStr		+='			<i class="fa-regular fa-pen-to-square"  onclick="replyEdit('+reply.rno+')"></i>	'
 						+ ' 		<i class="fa-regular fa-trash-can" onclick="replyDelete('+reply.rno+')"></i>		'
 							};
 		replyDivStr		+=''
 						+ '		 </td>        										'
-						+ '      <td>'+reply.replyer
+						+ '      <td>'+reply.nickname
 						+ '        <br>'
-						+ '           '+reply.replyDate         
+						+ '           '+reply.regdate         
 						+ '      </td>                         '
 						+ '    </tr>                                   ';
 	});
@@ -151,7 +151,7 @@ function replyWrite(){
 	//bno,reply,replyer(나중엔 세션에서 가져올거임)
 	let bno = document.querySelector('#bno').value;
 	let reply = document.querySelector('#reply').value;
-	let replyer = userId; //jsp내에서 변수로 선언해놓고 js에 가져와서 사용
+	let replyer = "진규짱"; //jsp내에서 변수로 선언해놓고 js에 가져와서 사용
 
 	
 	//전달할 객체로 생성

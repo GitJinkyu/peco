@@ -35,8 +35,8 @@
             <div class="col-lg-12">
               <nav class="main-nav">
                     <ul class="nav">
-                        <li><a href="/board?category=free">일상게시판</a></li>
-						<li><a href="/board?category=healing">힐링게시판</a></li>
+                        <li><a href="/board/free">일상게시판</a></li>
+						<li><a href="/board/healing">힐링게시판</a></li>
                         <li><a href="browse.html">어쩌구게시판</a></li>
                         <li><a href="browse.html"></a></li>
                 	</ul>

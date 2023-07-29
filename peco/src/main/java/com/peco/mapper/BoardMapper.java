@@ -13,7 +13,11 @@ public interface BoardMapper {
 	
 	public List<BoardVO> getMain();
 	
-	public List<BoardVO> getList(@Param(value="category")String category,Model model);
+	public List<BoardVO> getList(@Param(value="category")String category);
+	
+	public List<BoardVO> getFree();
+	
+	public List<BoardVO> getHealing();
 	
 	public BoardVO selectOne(@Param(value="bno") int bno);
 

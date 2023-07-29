@@ -23,7 +23,7 @@
 	    b.bno DESC 
 	</select>
 	
-	<select id="getList" resultType="com.peco.vo.BoardVO">
+	<select id="getFree" resultType="com.peco.vo.BoardVO">
  	SELECT 
 	    b.bno,
 	    b.title,
@@ -39,7 +39,28 @@
 	LEFT JOIN 
 	    member m ON b.m_id = m.M_ID
 	WHERE 
-		category=#{category}
+		category='free'
+	ORDER BY 
+	    b.bno DESC 
+	</select>
+	
+	<select id="getHealing" resultType="com.peco.vo.BoardVO">
+ 	SELECT 
+	    b.bno,
+	    b.title,
+	    b.content,
+	    b.m_id,
+	    b.visitcount,
+	    b.likecount,
+	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+	    b.updatedate,
+	    m.nickname
+	FROM 
+	    board b
+	LEFT JOIN 
+	    member m ON b.m_id = m.M_ID
+	WHERE 
+		category='healing'
 	ORDER BY 
 	    b.bno DESC 
 	</select>

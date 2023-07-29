@@ -11,9 +11,13 @@ import com.peco.vo.BoardVO;
 @Service
 public interface BoardService {
 	
-	public List<BoardVO> getMain(Model model);
+	public List<BoardVO> getMain();
 	
-	public List<BoardVO> getList(String category,Model model);
+	public List<BoardVO> getFree();
+	
+	public List<BoardVO> getHealing();
+	
+	public List<BoardVO> getList(String category);
 	
 	public BoardVO selectOne(int bno);
 

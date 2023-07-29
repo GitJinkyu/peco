@@ -138,18 +138,16 @@ window.addEventListener('load', () => {
           <div class="game-details">
           <div class="col-lg-12">
             
-            <div class="content" style="background-color: white; width: 996px" >
-               <p style="color: black"> ${board.title } </p>
-             </div>
+ 
            
               <div class="col-lg-12">
-                <div class="content">
-                  <div class="row">
+                <div class="content ">
+                  <div class="row justify-content-center">
                     <div class="col-lg-6">
                       <div class="left-info">
                         <div class="left">
-                          <h4>Fortnite</h4>
-                          <span>Sandbox</span>
+                          <h4>${board.title }</h4>
+                          <span>${board.nickname }</span>
                         </div>
                         <ul>
                           <li><i class="fa fa-star"></i> 4.8</li>
@@ -159,9 +157,8 @@ window.addEventListener('load', () => {
                     </div>
                     <div class="col-lg-6">
                       <div class="right-info">
-                        <ul>
-                        
-                          <li><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i></button>${board.likecount }</li> 
+                        <ul>                        
+<%--                           <li><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i></button>${board.likecount }</li>  --%>
                           <li><i class="fa-solid fa-pen-to-square" style="color: #ffa200;"></i> 글 수정</li>
                           <li><i class="fa-solid fa-trash" style="color: #ffa200;"></i> 글 삭제</li>
                           <li><i class="fa-regular fa-rectangle-list" style="color: #ffa200;"></i> 목록</li>
@@ -169,21 +166,21 @@ window.addEventListener('load', () => {
                       </div>
                       
                     </div>
-                    <div class="col-lg-4">
-                      <img src="/resources/assets/images/jjal1.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
-                    </div>
-                    <div class="col-lg-4">
-                      <img src="/resources/assets/images/jjal2.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
-                    </div>
-                    <div class="col-lg-4">
-                      <img src="/resources/assets/images/jjal3.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
-                    </div>
                     <div class="content col-lg-12" style="background-color: white">
+	                    <div class="col-lg-2">
+	                      <img src="/resources/assets/images/jjal1.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
+	                    </div>
+	                    <div class="col-lg-2">
+	                      <img src="/resources/assets/images/jjal2.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
+	                    </div>
+	                    <div class="col-lg-2">
+	                      <img src="/resources/assets/images/jjal3.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
+	                    </div>
                       <p>${board.content } </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-sm-1">
                       <div class="main-border-button">
-                        <a href="#">사진 업로드</a>
+                        <a ><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>${board.likecount }</a>
                       </div>
                     </div>
                   </div>

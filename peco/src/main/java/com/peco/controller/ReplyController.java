@@ -1,11 +1,14 @@
 package com.peco.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.peco.vo.Criteria;
@@ -47,6 +50,69 @@ public class ReplyController extends CommonRestController{
 //		return map;
 		
 		return responseListMap(list, pageDto);
+	}
+	
+	@GetMapping("/reply/delete/{rno}")
+	public Map<String,Object> delete(@PathVariable("rno")int rno) {
+		
+		/*
+		 * Map<String,Object> map = new HashMap<String, Object>();
+		 * 
+		 * int res = service.delete(rno);
+		 * 
+		 * if(res > 0) { map.put("result", "success"); }else { map.put("result",
+		 * "fail"); map.put("message", "댓글 삭제중 예외가 발생하였습니다."); }
+		 * 
+		 * return map;
+		 */
+				//위의 과정을 함수로 만든거로 처리
+		return responseDeleteMap(service.delete(rno));
+	}
+	
+	/**
+	 * RequestBody
+	 * 		JSON데이터를 원하는 타입으로 바인딩 처리
+	 * 
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("/reply/insert/")
+	public Map<String,Object> insert(@RequestBody ReplyVO vo) {
+		log.info("replyVO :"+vo);
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		
+		try {
+			int res = service.insert(vo);
+			return map = responseWriteMap(res);
+				
+		}catch (Exception e) {
+			map.put("result","fail");
+			map.put("message",e.getMessage());
+			
+		}
+
+		
+		return map;
+		
+	}
+	
+	@PostMapping("/reply/update/")
+	public Map<String,Object> update(@RequestBody ReplyVO vo) {
+		
+		log.info("replyVO :"+vo);
+		
+		/*
+		 * int res = service.update(vo);
+		 * 
+		 * Map<String,Object> map = new HashMap<String, Object>();
+		 * 
+		 * if(res > 0) { map.put("result", "success"); }else { map.put("result",
+		 * "fail"); map.put("message", "댓글 수정중 예외가 발생하였습니다."); }
+		 * 
+		 * return map;
+		 */
+		return responseEditMap(service.update(vo));
 	}
 
 }

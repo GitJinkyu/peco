@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class ReplyVO {
-	private String r_id;
+	private String rno;
 	private String reply;
 	private String replyer;
-	private String regidate;
-	private String updateDate;
+	private String nickname;
+	private String regdate;
+	private String updatedate;
 	private int bno;
 }

@@ -10,7 +10,7 @@ public class BoardVO {
 	private String content    ;
 	private String regdate    ;
 	private String updatedate ;
-	private String visitcount ;
+	private int visitcount ;
 	private String likecount  ;
 	private String m_id       ;
 	private String nickname   ;
