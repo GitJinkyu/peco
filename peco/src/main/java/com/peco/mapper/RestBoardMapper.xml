@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peco.mapper.RestBoardMapper">
+
+	<select id="getMain" resultType="com.peco.vo.BoardVO">
+ 	SELECT 
+	    b.bno,
+	    b.title,
+	    b.content,
+	    b.m_id,
+	    b.visitcount,
+	    b.likecount,
+	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+	    b.updatedate,
+	    m.nickname
+	FROM 
+	    board b
+	LEFT JOIN 
+	    member m ON b.m_id = m.M_ID
+	ORDER BY 
+	    b.bno DESC 
+	</select>
+	
+	<select id="getFree" resultType="com.peco.vo.BoardVO">
+ 	SELECT 
+	    b.bno,
+	    b.title,
+	    b.content,
+	    b.m_id,
+	    b.visitcount,
+	    b.likecount,
+	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+	    b.updatedate,
+	    m.nickname
+	FROM 
+	    board b
+	LEFT JOIN 
+	    member m ON b.m_id = m.M_ID
+	WHERE 
+		category='free'
+	ORDER BY 
+	    b.bno DESC 
+	</select>
+	
+	<select id="getHealing" resultType="com.peco.vo.BoardVO">
+ 	SELECT 
+	    b.bno,
+	    b.title,
+	    b.content,
+	    b.m_id,
+	    b.visitcount,
+	    b.likecount,
+	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+	    b.updatedate,
+	    m.nickname
+	FROM 
+	    board b
+	LEFT JOIN 
+	    member m ON b.m_id = m.M_ID
+	WHERE 
+		category='healing'
+	ORDER BY 
+	    b.bno DESC 
+	</select>
+	
+	<select id="selectOne" resultType="com.peco.vo.BoardVO">
+	 	SELECT 
+		    b.bno,
+		    b.title,
+		    b.content,
+		    b.m_id,
+		    b.visitcount,
+		    b.likecount,
+		    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+		    b.updatedate,
+		    m.nickname
+		FROM 
+		    board b
+		LEFT JOIN 
+		    member m ON b.m_id = m.M_ID
+		WHERE bno=#{bno}
+		ORDER BY 
+		    b.bno DESC 
+	</select>
+	
+	<update id="edit">
+	update board set title= #{title}, content = #{content}, updatedate = sysdate 
+	where bno = #{bno}
+	</update>
+
+
+</mapper>

@@ -91,7 +91,7 @@ https://templatemo.com/tm-579-cyborg-gaming
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-	<%@include file = "../common/header.jsp" %>
+  <%@include file = "../common/header.jsp" %>
   <!-- ***** Header Area End ***** -->
 
   <div class="container">

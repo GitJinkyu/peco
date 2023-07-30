@@ -68,15 +68,26 @@
 	.fa-bounce {
 	  animation: bounce 1s;
 	}
+	
+	
+	#likebox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  	}
+  
 
 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
 window.addEventListener('load', () => {
   /* --------------좋아요버튼-------------- */
   const animatedIcon = document.getElementById('animated-icon');
+  const likebox = document.getElementById('likebox');
 
-  animatedIcon.addEventListener('click', () => {
+  likebox.addEventListener('click', () => {
     animatedIcon.classList.add('fa-bounce');
 
     // 애니메이션이 끝난 후, "fa-bounce" 클래스 제거
@@ -89,11 +100,27 @@ window.addEventListener('load', () => {
   	btnReplyWrite.addEventListener('click',function(){
 		replyWrite()
 	});
-  
+  	
+  	
 	//댓글목록 조회 및 출력
 	getReplyList();
+	
+	
+	document.getElementById("btnEdit").addEventListener("click", () => {
+	    // 게시글의 postId를 가져오는 로직을 여기에 추가합니다.
+	    // 예를 들어, 아래와 같이 게시글의 bno를 가져오는 로직을 작성할 수 있습니다.
+	    const bno = document.getElementById("bno").value;
+	    // 가져온 게시글의 bno를 이용하여 수정 화면으로 이동하는 URL을 생성합니다.
+	    const editUrl = `/rest/edit/${bno}`; // 이 부분은 실제로 사용되는 URL 경로로 변경해야 합니다.
+	    // URL로 리다이렉트합니다.
+	    window.location.href = editUrl;
+	  });
+
   
 });
+
+
+
 
 </script>
 
@@ -118,7 +145,7 @@ window.addEventListener('load', () => {
   <!-- ***** Header Area Start ***** -->
 	<%@include file = "../common/header.jsp" %>
   <!-- ***** Header Area End ***** -->
-
+	
   <div class="container">			
     <div class="row">		  
       <div class="col-lg-12">
@@ -146,7 +173,9 @@ window.addEventListener('load', () => {
                     <div class="col-lg-6">
                       <div class="left-info">
                         <div class="left">
-                          <h4>${board.title }</h4>
+                        
+                          ${board.title }
+                        
                           <span>${board.nickname }</span>
                         </div>
                         <ul>
@@ -159,7 +188,7 @@ window.addEventListener('load', () => {
                       <div class="right-info">
                         <ul>                        
 <%--                           <li><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i></button>${board.likecount }</li>  --%>
-                          <li><i class="fa-solid fa-pen-to-square" style="color: #ffa200;"></i> 글 수정</li>
+                          <li><i id="btnEdit" class="fa-solid fa-pen-to-square" style="color: #ffa200;"></i> 글 수정</li>
                           <li><i class="fa-solid fa-trash" style="color: #ffa200;"></i> 글 삭제</li>
                           <li><i class="fa-regular fa-rectangle-list" style="color: #ffa200;"></i> 목록</li>
                         </ul>
@@ -176,11 +205,13 @@ window.addEventListener('load', () => {
 	                    <div class="col-lg-2">
 	                      <img src="/resources/assets/images/jjal3.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
 	                    </div>
-                      <p>${board.content } </p>
+	                  
+                      	${board.content }
+                     
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-1">
                       <div class="main-border-button">
-                        <a ><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>${board.likecount }</a>
+                        <a class="col-1" id="likebox"><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>${board.likecount }</a>
                       </div>
                     </div>
                   </div>

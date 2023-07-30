@@ -68,6 +68,14 @@
 	.fa-bounce {
 	  animation: bounce 1s;
 	}
+	
+	
+	#likebox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  	}
+  
 
 
 </style>
@@ -75,8 +83,9 @@
 window.addEventListener('load', () => {
   /* --------------좋아요버튼-------------- */
   const animatedIcon = document.getElementById('animated-icon');
+  const likebox = document.getElementById('likebox');
 
-  animatedIcon.addEventListener('click', () => {
+  likebox.addEventListener('click', () => {
     animatedIcon.classList.add('fa-bounce');
 
     // 애니메이션이 끝난 후, "fa-bounce" 클래스 제거
@@ -178,9 +187,9 @@ window.addEventListener('load', () => {
 	                    </div>
                       <p>${board.content } </p>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-1">
                       <div class="main-border-button">
-                        <a ><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>${board.likecount }</a>
+                        <a class="col-1" id="likebox"><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>${board.likecount }</a>
                       </div>
                     </div>
                   </div>
