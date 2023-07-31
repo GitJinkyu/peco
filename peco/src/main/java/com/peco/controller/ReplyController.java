@@ -53,8 +53,8 @@ public class ReplyController extends CommonRestController{
 	}
 	
 	@GetMapping("/reply/delete/{rno}")
-	public Map<String,Object> delete(@PathVariable("rno")int rno) {
-		
+	public Map<String,Object> delete(@PathVariable("rno")String rno) {
+		System.out.println("컨트롤러 진입");
 		/*
 		 * Map<String,Object> map = new HashMap<String, Object>();
 		 * 

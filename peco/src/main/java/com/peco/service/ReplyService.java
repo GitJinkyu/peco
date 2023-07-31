@@ -15,7 +15,7 @@ public interface ReplyService {
 	
 	public int insert(ReplyVO vo);
 	
-	public int delete(int rno);
+	public int delete(String rno);
 	
 	public int update(ReplyVO vo);
 	

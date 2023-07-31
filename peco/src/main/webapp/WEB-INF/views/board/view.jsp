@@ -99,11 +99,15 @@ window.addEventListener('load', () => {
 		replyWrite()
 	});
   
+  
+  
+  
 	//댓글목록 조회 및 출력
 	getReplyList();
+
   
 });
-
+var userNick = "${sessionScope.nickName}"; // userId 전역변수 선언
 </script>
 
 
@@ -133,6 +137,8 @@ window.addEventListener('load', () => {
       <div class="col-lg-12">
         <div class="page-content">
         
+			
+		<form method="get" name="viewForm">	
 			<!-- 검색조건 유지하기 위해 갖고가야하는 값들 -->
 			<input type="text" name="pageNo" value="${param.pageNo }">
 			<input type="text" name="searchField" value="${param.searchField }">
@@ -141,8 +147,6 @@ window.addEventListener('load', () => {
 			
 			<!-- 페이징 처리 하기 위해 있어야함 -->
 			<input type="hidden" id="page" name="page" value=1>
-			
-			
 		<!-- ***** Details Start ***** -->
           <div class="game-details">
           <div class="col-lg-12">
@@ -166,10 +170,11 @@ window.addEventListener('load', () => {
                     </div>
                     <div class="col-lg-6">
                       <div class="right-info">
-                        <ul>                        
-<%--                           <li><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i></button>${board.likecount }</li>  --%>
+                        <ul>              
+                        <c:if test="${sessionScope.nickName eq board.nickname}">          
                           <li><i class="fa-solid fa-pen-to-square" style="color: #ffa200;"></i> 글 수정</li>
                           <li><i class="fa-solid fa-trash" style="color: #ffa200;"></i> 글 삭제</li>
+                        </c:if>
                           <li><i class="fa-regular fa-rectangle-list" style="color: #ffa200;"></i> 목록</li>
                         </ul>
                       </div>
@@ -198,6 +203,7 @@ window.addEventListener('load', () => {
             </div>
           </div>
           <!-- ***** Details End ***** -->
+          </form>
           
           <br>
 			<div class="input-group">

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form class="row g-3" action="/board/list" name="searchForm">
+	<form class="row g-3" action="/peco/board/free" name="searchForm">
 	
 	<input type="hidden" class="form-control" name="bno" id="bno" >
 	<input type="hidden" class="form-control" name="pageNo" id="pageNo" value="${pageDto.cri.pageNo }">

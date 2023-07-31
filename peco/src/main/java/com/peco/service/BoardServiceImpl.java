@@ -45,5 +45,17 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getHealing();
 	}
 
+	@Override
+	public int delete(int bno) {
+
+		return mapper.delete(bno);
+	}
+
+	@Override
+	public int insertSelectKey(BoardVO boardvo) {
+
+		return mapper.insertSelectKey(boardvo);
+	}
+
 	
 }

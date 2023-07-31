@@ -14,5 +14,6 @@ public class BoardVO {
 	private String likecount  ;
 	private String m_id       ;
 	private String nickname   ;
+	private String writer ;
 	
 }

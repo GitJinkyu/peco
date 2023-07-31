@@ -20,5 +20,11 @@ public interface BoardMapper {
 	public List<BoardVO> getHealing();
 	
 	public BoardVO selectOne(@Param(value="bno") int bno);
+	
+	public int insertSelectKey(BoardVO boardvo);
+	
+	public int delete(int bno);
+	
+	public int updateReplyCnt(@Param("bno") int bno,@Param("amount") int amount);
 
 }

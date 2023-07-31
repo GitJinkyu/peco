@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.peco.mapper.MemberMapper">
+  
+  	<select id="login" resultType="com.peco.vo.MemberVo">
+  		select * from member where id = #{id}
+  	</select>
+  	
+  	<insert id="insert">
+		insert into member(m_id, id, pw, mname, age, mphone,email, nickname) 
+		VALUES (SEQ_member.nextval,#{id},#{pw},#{mname},#{age},#{mphone},#{email},#{nickname})
+	</insert>
+	
+	<select id="idCheck" resultType="int">
+  		select count(*) from member where id = #{id}
+  	</select>
+  	
+  	<select id="nicknameCheck" resultType="int">
+  		select count(*) from member where nickname = #{nickname}
+  	</select>
+  </mapper>

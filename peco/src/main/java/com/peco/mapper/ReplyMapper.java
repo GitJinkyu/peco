@@ -13,12 +13,12 @@ public interface ReplyMapper {
 	
 	public int insert(ReplyVO vo);
 	
-	public int delete(int rno);
+	public int delete(@Param(value="rno") String rno);
 	
 	public int update(ReplyVO vo);
 	
 	public int totalCnt(int bno);
 	
-	public ReplyVO getOne(int rno);
+	public ReplyVO getOne(String rno);
 
 }

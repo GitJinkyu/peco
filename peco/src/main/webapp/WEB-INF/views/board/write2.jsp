@@ -22,13 +22,8 @@
     <link rel="stylesheet" href="/resources/assets/css/owl.css">
     <link rel="stylesheet" href="/resources/assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-<!--
 
-TemplateMo 579 Cyborg Gaming
 
-https://templatemo.com/tm-579-cyborg-gaming
-
--->
 
 
 <style>
@@ -56,31 +51,19 @@ https://templatemo.com/tm-579-cyborg-gaming
   .live-stream{
     background-color: bisque;
   }
+  
+
 
 </style>
+<script>
+window.addEventListener('load', () => {
 
 
+  
+});
 
-<script type="text/javascript">
-
-	function requestAction(url, bno){
-		// 폼이름을 확인!
-		searchForm.action = url;
-		searchForm.bno.value = bno;
-		searchForm.submit();
-	}
-	
 </script>
-<script type="text/javascript">
 
-	function requestAction(url, bno){
-		// 폼이름을 확인!
-		searchForm.action = url;
-		searchForm.bno.value = bno;
-		searchForm.submit();
-	}
-	
-</script>
 
   </head>
   
@@ -103,63 +86,61 @@ https://templatemo.com/tm-579-cyborg-gaming
 	<%@include file = "../common/header.jsp" %>
   <!-- ***** Header Area End ***** -->
 
-<div class="container">
-  					
-    <div class="row">
-    				  
+  <div class="container">			
+    <div class="row">		  
       <div class="col-lg-12">
         <div class="page-content">
-	        <div class="live-stream">
-	            <div class="col-lg-12">
-	              <div class="heading-section">
-	                <h4><em>일상</em> 게시판</h4>
-	              </div>
-	            </div>
-	            <div class="row">
-
-
-			  <div >
-			    <h1>게시판</h1>
-			    <p class="lead"><b>${sessionScope.nickName}</b>님 환영합니다👋👋 </p>
-			    <a class="btn btn-lg btn-primary" href="/peco/board/write?pageNo=${pageDto.cri.pageNo }" role="button">글쓰기 &raquo;</a>
-			  </div>
-			  
-			  <p></p>
+        
 			
-			<%@include file = "../common/searchForm.jsp" %>
-			 
-			  <c:forEach var="board" items="${list}">
-				  <div class="list-group w-auto">
-				 
-				    <a onclick="requestAction('/peco/board/view', ${board.bno })" href="#" >
-				      <div >
-				        <div>
-				          <p>작성자 : ${board.nickname }</p>
-				          <h6>${board.title }</h6>
-				        </div>
-				        등록일 : ${board.regdate }
-				      </div>
-				    </a>
-				  </div>
-			  </c:forEach>
-			  
-			  		<!-- 페이지 불러오기 -->
-					<%@include file = "../common/pageNavi.jsp" %>
-			</div>
-			
-			
-			
-			</div>
-          </div> 
+		<form method="post" name="writeForm" action="/peco/board/write">	
+		  <!-- 검색조건 유지하기 위해 갖고가야하는 값들 -->
+		  <input type="text" name="pageNo" value="${param.pageNo }">
+		  <input type="text" name="searchField" value="${param.searchField }">
+		  <input type="text" name="searchWord" value="${param.searchWord }">
+		  <input type="text" name="bno" id="bno" value="${board.bno }">
+		  <!-- 페이징 처리 하기 위해 있어야함 -->
+		  <input type="hidden" id="page" name="page" value="1">
+		  <!-- ***** Details Start ***** -->
+		  <div class="game-details">
+		    <div class="col-lg-12">
+		      <div class="col-lg-12">
+		        <div class="content">
+		          <div class="row justify-content-center">
+		            <div class="col-lg-6">
+		              <div class="left-info">
+		                <div class="left">
+		                  <input type="text" name="title" placeholder="제목 작성할 부분" value="${board.title }">
+		                  <span>${sessionScope.nickName }</span>
+		                </div>
+		              </div>
+		            </div>
+		            <div class="col-lg-6">
+		              <div class="right-info">
+		              </div>
+		            </div>
+		            <div class="content col-lg-12" style="background-color: white">
+		              <textarea name="content" placeholder="내용 작성할 부분">${board.content }</textarea>
+		            </div>
+		            <div class="col-lg-12">
+		              <button type="submit" class="btn btn-primary btn-lg">글쓰기</button>
+		              <button type="reset" class="btn btn-secondary btn-lg">초기화</button>
+		            </div>
+		            <div class="col-lg-12">
+		              <div class="main-border-button">
+		                <a href="#">사진 업로드</a>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  <!-- ***** Details End ***** -->
+		</form>
 
-	
-      
-      
-      
-      
-	
+          
 
-       </div>
+        </div>
       </div>
     </div>
   </div>
@@ -187,9 +168,6 @@ https://templatemo.com/tm-579-cyborg-gaming
   <script src="/resources/assets/js/tabs.js"></script>
   <script src="/resources/assets/js/popup.js"></script>
   <script src="/resources/assets/js/custom.js"></script>
-  
-  <!-- cdn방식의 css불러오기 -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 
   </body>

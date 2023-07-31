@@ -20,5 +20,9 @@ public interface BoardService {
 	public List<BoardVO> getList(String category);
 	
 	public BoardVO selectOne(int bno);
+	
+	public int insertSelectKey(BoardVO boardvo);
+	
+	public int delete(int bno);
 
 }
