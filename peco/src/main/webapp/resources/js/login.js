@@ -67,7 +67,7 @@ window.addEventListener('load', function(){
 			
 			fetchPost('/peco/register', obj, (map)=>{
 						if(map.result == 'success'){
-							location.href='/login?msg='+map.msg;
+							location.href='/peco/login?msg='+map.msg;
 						}else{
 							signupMsg.innerHTML = map.msg;
 						}

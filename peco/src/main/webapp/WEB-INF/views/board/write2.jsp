@@ -3,10 +3,13 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-  <head>
-
-    <meta charset="utf-8">
+<head>
+<meta charset="UTF-8">
+<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -28,7 +31,7 @@
 
 <style>
   body{
-    background-color: rgba(250, 149, 16, 0.979);
+    background-color: white;
   }
 
   div >.page-content{
@@ -52,20 +55,23 @@
     background-color: bisque;
   }
   
+  footer p {
+        color: black;
+  }
+  footer p > a {
+        color: black;
+  }
+  
 
 
 </style>
 <script>
-window.addEventListener('load', () => {
 
-
-  
-});
 
 </script>
 
 
-  </head>
+</head>
   
 <body>
 
@@ -92,43 +98,46 @@ window.addEventListener('load', () => {
         <div class="page-content">
         
 			
-		<form method="post" name="writeForm" action="/peco/board/write">	
+	<form method="post" name="writeForm" action="/peco/board/write">
+			
 		  <!-- 검색조건 유지하기 위해 갖고가야하는 값들 -->
 		  <input type="text" name="pageNo" value="${param.pageNo }">
 		  <input type="text" name="searchField" value="${param.searchField }">
 		  <input type="text" name="searchWord" value="${param.searchWord }">
-		  <input type="text" name="bno" id="bno" value="${board.bno }">
+		  <input type="text" name="m_id" value="${sessionScope.mid }">
+		  
 		  <!-- 페이징 처리 하기 위해 있어야함 -->
 		  <input type="hidden" id="page" name="page" value="1">
+		  
 		  <!-- ***** Details Start ***** -->
 		  <div class="game-details">
 		    <div class="col-lg-12">
 		      <div class="col-lg-12">
 		        <div class="content">
 		          <div class="row justify-content-center">
-		            <div class="col-lg-6">
-		              <div class="left-info">
-		                <div class="left">
-		                  <input type="text" name="title" placeholder="제목 작성할 부분" value="${board.title }">
-		                  <span>${sessionScope.nickName }</span>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="col-lg-6">
-		              <div class="right-info">
-		              </div>
-		            </div>
-		            <div class="content col-lg-12" style="background-color: white">
-		              <textarea name="content" placeholder="내용 작성할 부분">${board.content }</textarea>
-		            </div>
-		            <div class="col-lg-12">
-		              <button type="submit" class="btn btn-primary btn-lg">글쓰기</button>
-		              <button type="reset" class="btn btn-secondary btn-lg">초기화</button>
-		            </div>
+		         		 <label>
+				            <input type="checkbox" name="category" value="free">
+				            	일상게시판
+				        </label>
+				        <br>
+				        <label>
+				            <input type="checkbox" name="category" value="healing">
+				            	힐링게시판
+				        </label>
+		            <input type="text" name="title" id="title" placeholder="제목">
+		            <input type="text" name="writer" id="writer" class="form-control"  readonly="readonly" value="${sessionScope.nickName }">
+		  
+		            <div class="content col-lg-12" style="background-color: white; color: black;"  contenteditable="true">
+					 <!-- 글내용 적는 박스 -->
+					</div>
+
 		            <div class="col-lg-12">
 		              <div class="main-border-button">
 		                <a href="#">사진 업로드</a>
 		              </div>
+		            </div>
+		            <div class="col-lg-12">
+		              <button type="submit" class="btn btn-primary btn-lg">글 작성</button>
 		            </div>
 		          </div>
 		        </div>
@@ -136,7 +145,7 @@ window.addEventListener('load', () => {
 		    </div>
 		  </div>
 		  <!-- ***** Details End ***** -->
-		</form>
+	</form>
 
           
 
@@ -150,7 +159,6 @@ window.addEventListener('load', () => {
       <div class="row">
         <div class="col-lg-12">
           <p>Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved. 
-          
           <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a>  Distributed By <a href="https://themewagon.com" target="_blank" >ThemeWagon</a></p>
         </div>
       </div>

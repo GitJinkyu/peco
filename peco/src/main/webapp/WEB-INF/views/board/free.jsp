@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -120,8 +121,10 @@ https://templatemo.com/tm-579-cyborg-gaming
 
 			  <div >
 			    <h1>게시판</h1>
+			  <c:if test="${not empty sessionScope.nickName}">
 			    <p class="lead"><b>${sessionScope.nickName}</b>님 환영합니다👋👋 </p>
 			    <a class="btn btn-lg btn-primary" href="/peco/board/write?pageNo=${pageDto.cri.pageNo }" role="button">글쓰기 &raquo;</a>
+			  </c:if>
 			  </div>
 			  
 			  <p></p>

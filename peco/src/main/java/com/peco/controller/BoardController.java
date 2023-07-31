@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.peco.service.BoardService;
 import com.peco.vo.BoardVO;
+import com.peco.vo.Criteria;
 
 import lombok.extern.log4j.Log4j;
 
@@ -26,10 +27,10 @@ public class BoardController {
 	BoardService service;
 	
 	@GetMapping("/board/main")
-	public String board(Model model) {
+	public String board(Model model,Criteria cri) {
 
-		List<BoardVO> Free = service.getFree();
-		List<BoardVO> Healing = service.getHealing();
+		List<BoardVO> Free = service.getFree(cri, model);
+		List<BoardVO> Healing = service.getHealing(cri,model);
 		
 		model.addAttribute("Free",Free);
 		model.addAttribute("Healing",Healing);
@@ -39,9 +40,9 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/free")
-	public String free(Model model) {
+	public String free(Model model,Criteria cri) {
 		
-		List<BoardVO> list = service.getFree();
+		List<BoardVO> list = service.getFree(cri,model);
 		
 		model.addAttribute("list",list);
 		
@@ -49,9 +50,9 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/healing")
-	public String healing(Model model) {
+	public String healing(Model model,Criteria cri) {
 		
-		List<BoardVO> list = service.getHealing();
+		List<BoardVO> list = service.getHealing(cri,model);
 		
 		model.addAttribute("list",list);
 		
