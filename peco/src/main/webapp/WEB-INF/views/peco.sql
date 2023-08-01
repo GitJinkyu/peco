@@ -285,9 +285,11 @@ VALUES ('m_' || LPAD(seq_member.NEXTVAL, 5, '0'), 'user6', '1234', '정승진', 
 
 
 create sequence seq_reply;
+create sequence seq_file;
+
 
 INSERT INTO reply (r_ID, reply,replyer, bno )
-VALUES ('r_' || LPAD(seq_member.NEXTVAL, 5, '0'), '리플테스트입니다', '진규짱', 5);
+VALUES ('r_' || LPAD(seq_reply.NEXTVAL, 5, '0'), '리플테스트입니다', '진규짱', 5);
 
 
 	select *
@@ -341,5 +343,44 @@ VALUES ('r_' || LPAD(seq_member.NEXTVAL, 5, '0'), '리플테스트입니다', '�
 
 					 ) t
 			)
-	where rn between 1 and 5
+	where rn between 1 and 5;
+    
+		insert into b_img (UUID, UPLOADPATH, FILENAME, FILETYPE, BNO,FNO) 
+		values ('f','f','f','f','f',('f_' || LPAD(seq_file.NEXTVAL, 5, '0')));
+        
+        
+        	insert into b_img (UUID, UPLOADPATH, FILENAME, FILETYPE, BNO) 
+		values ('sdfsdf','sdfsdf','sdfsdf','i',26);
+        
+        
+        		SELECT t.*,
+		      'c:\upload\' || uploadpath || uuid || '_' || filename AS savePath,
+		       DECODE(filetype, 'I', 'c:\upload\' || uploadpath || 's_' || uuid || '_' || filename, 'NO_image') AS s_savePath
+		FROM b_img t
+		WHERE bno = {bno};
+        
+        SELECT t.*,
+		      'c:\upload\' || uploadpath || uuid || '_' || filename AS savePath,
+		DECODE(filetype, 'I', 'c:\upload\' || uploadpath || 's_' || uuid || '_' || filename, 'NO_image') AS s_savePath
+		FROM b_img t
+		WHERE bno = 36;
+        
+        
+        	 	SELECT 
+		    b.bno,
+		    b.title,
+		    b.content,
+		    b.m_id,
+		    b.visitcount,
+		    b.likecount,
+		    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
+		    b.updatedate,
+		    m.nickname
+		FROM 
+		    board b
+		LEFT JOIN 
+		    member m ON b.m_id = m.M_ID
+		WHERE bno=42
+		ORDER BY 
+		    b.bno DESC ;
 

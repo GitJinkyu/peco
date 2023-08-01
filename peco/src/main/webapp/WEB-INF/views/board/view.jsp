@@ -100,14 +100,112 @@ window.addEventListener('load', () => {
 	});
   
   
+  	
+	btnDelete.addEventListener('click',function(){
+		viewForm.action='/peco/board/delete';
+		viewForm.submit();
+	});
+	
   
   
 	//댓글목록 조회 및 출력
 	getReplyList();
+	
+	//파일목록 조회 및 출력
+	getFileList();
 
   
 });
 var userNick = "${sessionScope.nickName}"; // userId 전역변수 선언
+
+
+
+function getFileList(){
+  	///file/list/{bno}
+  	
+  	let bno = '${board.bno}';
+  	console.log(bno);
+  	
+  	if(bno){
+  	fetch('/file/list/'+bno)
+  		.then(response => response.json())
+  		.then(map => viewFileList(map));
+  	}
+  }
+
+
+  function viewFileList(map){
+  	console.log(map);
+  	
+  	let content = '';
+  	if(map.list.length > 0 ){
+  			content +=''
+  					+'<div class="mb-3">                                              '
+  					+'  <label for="content" class="form-label">첨부파일 목록</label> 	  '
+  					+'  <div class="form-control" id="attachFile">                    '
+  		
+  		map.list.forEach(function(item,index){
+  			let savePath = encodeURIComponent(item.savePath);
+  			let s_savePath = encodeURIComponent(item.s_savePath);
+
+  			console.log('세이브 패스 여기다 -=>',savePath)
+  			content +=''
+  					+'<a href="/file/download?filename='+savePath+'">  '
+  					+'<img src="/display?fileName='+ savePath+'"></a>'
+  					+ item.filename
+  					+'</a>'
+  					+'<i class="fa-regular fa-trash-can" onclick="FileDelete(this)"		' 
+  					+'data-bno="'+item.bno+'" data-uuid="'+item.uuid+'"></i>		'
+  					+' <br>			';
+  		})
+  		
+  			content +='  </div>                                                        '
+  					+'</div>                                                          ';
+  	}else{
+  		content = '등록된 파일이 없습니다.';
+  	}
+  	
+  	divFileupload.innerHTML = content;
+  }
+
+  function FileDelete(e){
+  	//e.data 값 가져오는법
+  	console.log(e.dataset.bno,e.dataset.uuid,e.dataset.aaa)
+  	
+  	let bno = e.dataset.bno
+  	let uuid = e.dataset.uuid
+  	
+  	//fetch요청
+  	//jsp 자바스크립트에서 백틱쓰려면 변수앞에 \${} 역슬래쉬 붙여줘야함
+  	//EL 표현식과 충돌나서 에러발생하는것
+  	//*주석처리해도 변수 앞에 역슬래쉬 안붙이면 에러 뜸!!*
+  	 fetchGet(`/file/delete/\${uuid}/\${bno}`, fileuploadRes); 
+  	//fetchGet('/file/delete/'+uuid+'/'+bno+'', fileuploadRes);
+  }
+
+  function fileuploadRes(map){
+  	if(map.result == 'sucess'){
+  		divFileuploadRes.innerHTML = map.msg;
+  		getFileList()
+
+  	}else{
+  		alert(map.msg);
+  		getFileList()
+  	}
+  }
+
+	
+	function postDelete(){
+		
+		viewForm.action='/board/delete';
+		viewForm.submit();
+		
+	}
+	
+	
+
+
+
 </script>
 
 
@@ -172,8 +270,8 @@ var userNick = "${sessionScope.nickName}"; // userId 전역변수 선언
                       <div class="right-info">
                         <ul>              
                         <c:if test="${sessionScope.nickName eq board.nickname}">          
-                          <li><i class="fa-solid fa-pen-to-square" style="color: #ffa200;"></i> 글 수정</li>
-                          <li><i class="fa-solid fa-trash" style="color: #ffa200;"></i> 글 삭제</li>
+                          <li><i id="btnDelete" class="fa-solid fa-pen-to-square" style="color: #ffa200;"></i> 글 수정</li>
+                          <li><i class="fa-solid fa-trash" onclick="postDelete" style="color: #ffa200;"></i> 글 삭제</li>
                         </c:if>
                           <li><i class="fa-regular fa-rectangle-list" style="color: #ffa200;"></i> 목록</li>
                         </ul>
@@ -182,15 +280,20 @@ var userNick = "${sessionScope.nickName}"; // userId 전역변수 선언
                     </div>
                     <div class="content col-lg-12" style="background-color: white">
 	                    <div class="col-lg-2">
-	                      <img src="/resources/assets/images/jjal1.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
-	                    </div>
-	                    <div class="col-lg-2">
-	                      <img src="/resources/assets/images/jjal2.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
-	                    </div>
-	                    <div class="col-lg-2">
-	                      <img src="/resources/assets/images/jjal3.jpg" alt="" style="border-radius: 23px; margin-bottom: 30px;">
+	                    
+	                    <!------- 파일 목록 출력 --------->
+						<c:forEach items="${filelist}" var="file">
+						<!----사진 클릭했을때 다운로드링크-- -->
+						<%-- <a href="/file/download?filename=${file.savePath}"> --%>
+						<img src="/display?fileName=${file.s_savePath}" alt="${file.filename}" style="border-radius: 23px; margin-bottom: 30px;">
+						<!-- </a> -->
+					    <br>
+						</c:forEach>
+	                    
+	                  
 	                    </div>
                       <p>${board.content } </p>
+                      
                     </div>
                     <div class="col-1">
                       <div class="main-border-button">
@@ -206,16 +309,21 @@ var userNick = "${sessionScope.nickName}"; // userId 전역변수 선언
           </form>
           
           <br>
+          
+			<dvi id="divFileupload">파일목록</dvi>
+			          
 			<div class="input-group">
 			  <span class="input-group-text">답글 작성</span>
 			  <input type="text" aria-label="First name" class="form-control" id="reply">
 			  <input type="text" aria-label="Last name" class="input-group-text" id="btnReplyWrite" value="등록하기">
 			</div>
+			
+	<!-- ----------------댓글창 들어가는곳----------------- -->
           <div class="content">
           	<div id="replyDiv">
 			</div>          
 		  </div>
-          
+
           
 
         </div>

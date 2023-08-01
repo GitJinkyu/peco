@@ -45,7 +45,9 @@
         </div>
     </div>
   </header>
-  <script type="text/javascript">
+  
+<!-- ----------모달--------------- --> 
+<script type="text/javascript">
 
 // 메세지 처리
 /*
@@ -61,38 +63,58 @@
  			닫는 이벤트 발생(hidden.bs.modal)->
 			그후 뒤로가기(history(-1)) 추가
  */
- 
-
-let msg = '${msg}';
-
-window.onload = function(){
-	if(msg != ''){
-		document.querySelector(".modal-body").innerHTML = msg;
-		
-		let myModal = new bootstrap.Modal('#myModal', {keyboard: false});
-		myModal.show();
+	let msg = '${msg}';
 	
-	}
-}
+	window.addEventListener('load',function(){
+
+		if(msg != ''){
+			// 메세지 출력
+			document.querySelector(".modal-body").innerHTML = msg;
+			// 버튼 출력 제어
+			document.querySelector("#btnModalSave").style.display='none';
+			
+			// 모달 생성
+			let myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+				  keyboard: false
+			});
+			// 모달 보여주기
+			myModal.show();
+			const myModalEl = document.getElementById('myModal')
+			myModalEl.addEventListener('hidden.bs.modal', event => {
+				//컨트롤러에서 원하는 url저장해서 넘겨주면 그곳으로 이동시킴
+				let url = '${url}'
+				if(url){
+					location.href = url;
+				}else{
+				/* history.go(-1); */
+					location.href = "/peco/board/free";
+					
+				}
+			});
+		}
+
+	})
 </script>
 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body" style="color: black;">
-	       
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	        <button type="button" class="btn btn-primary">확인</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+        <button type="button" id="btnModalSave" class="btn btn-primary">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

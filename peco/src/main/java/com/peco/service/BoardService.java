@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.peco.vo.Criteria;
 import com.peco.vo.BoardVO;
@@ -20,7 +21,11 @@ public interface BoardService {
 	
 	public BoardVO selectOne(int bno);
 	
-	public int insertSelectKey(BoardVO boardvo);
+	public int insertSelectKey(BoardVO boardvo, List<MultipartFile> files )throws Exception ;
+	
+	public int update(BoardVO boardvo, List<MultipartFile> files) throws Exception;
+	
+	public int getTotalCnt(Criteria cri);
 	
 	public int delete(int bno);
 

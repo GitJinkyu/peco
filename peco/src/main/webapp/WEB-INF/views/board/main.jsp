@@ -160,6 +160,7 @@ https://templatemo.com/tm-579-cyborg-gaming
 
 			
             <div class="row">
+            
             <!-- -------일상 게시글 시작---------- -->
             <c:forEach var="f" items="${Free}">
               <div class="col-lg-3 col-sm-6">
@@ -191,6 +192,7 @@ https://templatemo.com/tm-579-cyborg-gaming
               </div>
           	</c:forEach>
           	<!-- -------게시글 끝---------- -->
+          	
             </div>
           </div>
           <!-- ***** Live Stream End ***** -->

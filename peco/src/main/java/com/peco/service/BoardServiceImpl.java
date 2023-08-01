@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.peco.vo.Criteria;
 import com.peco.vo.PageDto;
+import com.peco.service.FileuploadService;
+import com.peco.vo.FileuploadVO;
 import com.peco.mapper.BoardMapper;
 import com.peco.vo.BoardVO;
 
@@ -15,7 +19,10 @@ import com.peco.vo.BoardVO;
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
-	BoardMapper mapper;
+	private BoardMapper mapper;
+	
+	@Autowired
+	private FileuploadService service;
 
 	@Override
 	public List<BoardVO> getMain() {
@@ -73,14 +80,58 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int delete(int bno) {
+	//게시물을 삭제시 첨부된 파일이 있는 경우 오류가 발생
+			//첨부파일을 모두 삭제해야함 (또는 DB테이블 제약조건의 옵션을 변경해도된다.)
 
-		return mapper.delete(bno);
+			//첨부파일 리스트 조회 - fileuploadService
+			List<FileuploadVO> list = service.getList(bno);
+			int res = 0 ;
+			for(FileuploadVO vo : list) {
+				//리스트 돌면서 삭제 처리 - fileuploadService
+				res += service.delete(bno, vo.getUuid());
+				
+			}
+			
+			/* 2.댓글 리스트 삭제 추가해야함 */
+			//replyMapper.deleteReplyList(bno);
+			
+			//3.게시글 삭제
+			return mapper.delete(bno);
 	}
 
 	@Override
-	public int insertSelectKey(BoardVO boardvo) {
+	@Transactional(rollbackFor = Exception.class)
+	public int insertSelectKey(BoardVO boardvo,List<MultipartFile> files ) throws Exception {
 
-		return mapper.insertSelectKey(boardvo);
+		
+		//게시물 등록
+		int res = mapper.insertSelectKey(boardvo);
+		
+		//파일 첨부
+		service.fileupload(files,boardvo.getBno());
+		
+		
+		return res;
+	}
+
+
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int update(BoardVO boardvo, List<MultipartFile> files) throws Exception {
+		
+		int res = mapper.update(boardvo);
+		
+		service.fileupload(files, boardvo.getBno());
+		
+		return res;
+	
+	}
+	
+	@Override
+	public int getTotalCnt(Criteria cri) {
+		return  mapper.getTotalCnt(cri);
+		
 	}
 	
 	
