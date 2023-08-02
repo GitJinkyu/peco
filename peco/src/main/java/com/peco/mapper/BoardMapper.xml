@@ -130,11 +130,23 @@
 	</select>
 	
 	<delete id="delete">
-	delete from board where bno = #{bno};
+	delete from board where bno = #{bno}
 	</delete>
 	
-	<update id="update">
+	<update id="edit">
 	update board set title= #{title}, content = #{content}, updatedate = sysdate 
+	where bno = #{bno}
+	</update>
+	
+	<select id="getLike" resultType="int">
+	select likecount 
+	from board
+	where bno = #{bno}
+	</select>
+	
+	
+	<update id="likeCnt">
+	update board set likecount= likecount+1 
 	where bno = #{bno}
 	</update>
 	

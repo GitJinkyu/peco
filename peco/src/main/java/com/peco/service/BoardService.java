@@ -23,10 +23,14 @@ public interface BoardService {
 	
 	public int insertSelectKey(BoardVO boardvo, List<MultipartFile> files )throws Exception ;
 	
-	public int update(BoardVO boardvo, List<MultipartFile> files) throws Exception;
+	public int edit(BoardVO boardvo, List<MultipartFile> files) throws Exception;
 	
 	public int getTotalCnt(Criteria cri);
 	
 	public int delete(int bno);
+	
+	public int getLike(int bno);
+	
+	public int likeCnt(int bno);
 
 }

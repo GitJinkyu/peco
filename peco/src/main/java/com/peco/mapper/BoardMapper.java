@@ -24,9 +24,13 @@ public interface BoardMapper {
 	
 	public int delete(int bno);
 	
-	public int update(BoardVO boardvo);
+	public int edit(BoardVO boardvo);
 	
 	public int getTotalCnt(Criteria cri);
+	
+	public int getLike(@Param("bno") int bno);
+	
+	public int likeCnt(int bno);
 	
 	public int updateReplyCnt(@Param("bno") int bno,@Param("amount") int amount);
 

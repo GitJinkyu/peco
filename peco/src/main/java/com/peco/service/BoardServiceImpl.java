@@ -118,9 +118,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int update(BoardVO boardvo, List<MultipartFile> files) throws Exception {
+	public int edit(BoardVO boardvo, List<MultipartFile> files) throws Exception {
 		
-		int res = mapper.update(boardvo);
+		int res = mapper.edit(boardvo);
 		
 		service.fileupload(files, boardvo.getBno());
 		
@@ -133,7 +133,26 @@ public class BoardServiceImpl implements BoardService {
 		return  mapper.getTotalCnt(cri);
 		
 	}
+
 	
+	@Override
+	public int getLike(int bno) {
+		
+		mapper.likeCnt(bno);
+		
+		return mapper.getLike(bno);
+	}	
+
+
+	@Override
+	public int likeCnt(int bno) {
+		
+		
+		
+		return mapper.likeCnt(bno);
+	}
+
+
 	
 
 }
