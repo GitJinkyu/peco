@@ -383,4 +383,105 @@ VALUES ('r_' || LPAD(seq_reply.NEXTVAL, 5, '0'), '리플테스트입니다', '�
 		WHERE bno=42
 		ORDER BY 
 		    b.bno DESC ;
+		    
+		    
+		    --최근 7일내에 작성된 글        
+SELECT 
+    b.bno,
+    b.title,
+    b.content,
+    b.m_id,
+    b.visitcount,
+    b.likecount,
+    b.category,
+    CASE
+        WHEN TRUNC(SYSDATE) = TRUNC(b.regdate) THEN TO_CHAR(b.regdate, 'HH24:MI:SS')
+        ELSE TO_CHAR(b.regdate, 'YYYY-MM-DD')
+    END AS regdate,
+    b.updatedate,
+    m.nickname
+FROM 
+    board b
+LEFT JOIN 
+    member m ON b.m_id = m.M_ID
+WHERE 
+    b.regdate >= SYSDATE - 7
+ORDER BY 
+    b.likecount DESC;
+    
+    
+    
+--최근 7일내, 좋아요 상위 5개 글 조회
+SELECT *
+FROM (
+    SELECT 
+        b.bno,
+        b.title,
+        b.content,
+        b.m_id,
+        b.visitcount,
+        b.likecount,
+        b.category,
+        CASE
+            WHEN TRUNC(SYSDATE) = TRUNC(b.regdate) THEN TO_CHAR(b.regdate, 'HH24:MI:SS')
+            ELSE TO_CHAR(b.regdate, 'YYYY-MM-DD')
+        END AS regdate,
+        b.updatedate,
+        m.nickname
+    FROM 
+        board b
+    LEFT JOIN 
+        member m ON b.m_id = m.M_ID
+    WHERE 
+        b.regdate >= SYSDATE - 7
+    ORDER BY 
+        b.likecount DESC
+)
+WHERE ROWNUM <= 5;
+
+
+
+
+
+--최근 7일내, 좋아요 상위 5개 글 파일 경로 조회
+SELECT 
+    b.bno,
+    b.title,
+    b.content,
+    b.m_id,
+    b.visitcount,
+    b.likecount,
+    b.category,
+    CASE
+        WHEN TRUNC(SYSDATE) = TRUNC(b.regdate) THEN TO_CHAR(b.regdate, 'HH24:MI:SS')
+        ELSE TO_CHAR(b.regdate, 'YYYY-MM-DD')
+    END AS regdate,
+    b.updatedate,
+    m.nickname,
+    a.uploadpath || a.uuid || '_' || a.filename AS savePath,
+    DECODE(a.filetype, 'I', a.uploadpath || 's_' || a.uuid || '_' || a.filename, 'default\NO_image.jpg') AS s_savePath
+FROM (
+    SELECT 
+        b2.bno,
+        b2.title,
+        b2.content,
+        b2.m_id,
+        b2.visitcount,
+        b2.likecount,
+        b2.category,
+        b2.regdate,
+        b2.updatedate
+    FROM 
+        board b2
+    WHERE 
+        b2.regdate >= SYSDATE - 7
+    ORDER BY 
+        b2.likecount DESC
+) b
+LEFT JOIN
+    member m ON b.m_id = m.m_id
+LEFT JOIN
+    b_img a ON b.bno = a.bno
+WHERE ROWNUM <= 5
+ORDER BY b.likecount DESC;
 

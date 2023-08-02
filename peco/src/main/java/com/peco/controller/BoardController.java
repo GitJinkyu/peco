@@ -42,9 +42,22 @@ public class BoardController extends CommonRestController{
 	@GetMapping("/board/main")
 	public String board(Model model,Criteria cri) {
 
+		List<BoardVO> Bestlist = service.getBest();
 		List<BoardVO> Free = service.getFree(cri, model);
 		List<BoardVO> Healing = service.getHealing(cri,model);
 		
+	    // 파일 경로를 슬래시(/)로 변경
+	    if (Bestlist != null) {
+	    	for (BoardVO Best : Bestlist) {
+	        String convertedPath = Best.getSavePath().replace("\\", "/");
+	        String convertedThumPath = Best.getS_savePath().replace("\\", "/");
+	        Best.setSavePath(convertedPath);
+	        Best.setS_savePath(convertedThumPath);
+	    	}
+	    }
+		
+		
+		model.addAttribute("Best",Bestlist);
 		model.addAttribute("Free",Free);
 		model.addAttribute("Healing",Healing);
 		
@@ -272,9 +285,9 @@ public class BoardController extends CommonRestController{
 	 @ResponseBody
      public int updateLike(@PathVariable("bno") int bno, Model model) {
        
-	 	int res = service.getLike(bno);
+	 	int count = service.getLike(bno);
 
         
-        return res;
+        return count;
     }
 }

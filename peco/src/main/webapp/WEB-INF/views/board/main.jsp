@@ -33,6 +33,7 @@ https://templatemo.com/tm-579-cyborg-gaming
 
 <style>
   body{
+   margin: 0 auto; /* 바디 마진을 0으로 하고 가로 가운데 정렬 */
     background-color: rgba(250, 149, 16, 0.979);
   }
 
@@ -56,6 +57,30 @@ https://templatemo.com/tm-579-cyborg-gaming
   .live-stream{
     background-color: bisque;
   }
+  
+  .thumbnail-image {
+    width: 100%; /* 이미지의 가로 크기를 부모 요소의 100%로 조정 */
+    height: 100%; /* 이미지의 세로 크기를 부모 요소의 100%로 조정 */
+    object-fit: cover;
+    border-radius: 23px;
+    margin-bottom: 30px;
+}
+
+  .thumb {
+    width: 200px; /* 이미지의 가로 크기를 부모 요소의 100%로 조정 */
+    height: 200px; /* 이미지의 세로 크기를 부모 요소의 100%로 조정 */
+
+}
+  .item {
+  	width: 216px;
+  	height: 280px;
+  	margin-right: 0; /* 오른쪽 마진을 0으로 설정 */
+  }
+  .besttitle {
+  	margin-left: 10px; /* 탑 마진을 0으로 설정 */
+    margin-top: 0; /* 탑 마진을 0으로 설정 */
+}
+
 
 </style>
 
@@ -113,37 +138,30 @@ https://templatemo.com/tm-579-cyborg-gaming
                   <h4><em>베스트</em> 게시글</h4>
                 </div>
                 <div class="owl-features owl-carousel">
+                
+                
             <!------------------- 베스트 게시글 시작-------------------->
-            <%-- <c:forEach var="i" begin="1" end="10"> --%>
+            <c:forEach var="b" items="${Best}">
 				  <div class="item">
 				    <div class="thumb">
-				      <img src="/resources/assets/images/jjal1.jpg" alt="" style="width:250px; height:250px;">
+				      <img src="/display?fileName=${b.s_savePath}" alt="" class="thumbnail-image">
 				      <div class="hover-effect">
-				        <h6>2.4K Streaming</h6>
+				        <i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"> <h4> ${b.likecount }</h4></i>
 				      </div>
 				    </div>
-				    <h4>냥집사<br><span>닭다리같죠</span></h4>
+					    <div class="down-content">
+		                    <div class="avatar">
+		                      <img src="/resources/images/default.png" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
+		                    </div>
+		                    <span><i class="fa fa-check"></i> ${b.nickname}</span>
+		                    <h4 class="besttitle">${b.title } </h4>
+		              		
+		                </div> 
 				  </div>
-			<%-- </c:forEach> --%>
+			</c:forEach>
             <!------------------- 베스트 게시글  끝-------------------->
-                   <div class="item">
-                    <div class="thumb">
-                      <img src="/resources/assets/images/jjal2.jpg" alt="" style="width:250px; height:250px;">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>집사1<br><span>울냥이</span></h4>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="/resources/assets/images/jjal3.jpg" alt="" style="width:250px; height:250px;">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>댕댕이주인<br><span>산책합니다</span></h4>
-                  </div> 
+            
+            
                 </div>
               </div>
             </div>

@@ -35,11 +35,13 @@ function fetchPost(url,obj,callback){
 			//요청 결과json 문자열을 javascript 객체로 반환
 			.then(response => response.json())
 			//매개로 받은 콜백함수 실행
-			.then(map => callback(map));
+			.then(map => callback(map))
+			
 			
 		} catch (e) {
 			console.log(e);
-				
+
+		
 		}
 	
 	
@@ -71,12 +73,19 @@ function getReplyList(page){
 	fetchGet(`/reply/list/${bno}/${page}`, replyView);
 }
 
+let totalCnt;
+
 function replyView(map){
 	let list = map.list;
 	let pageDto = map.pageDto;
+	totalCnt = map.totalCnt;
+	
+	//총 댓글 수 출력
+	document.getElementById('totalCnt').textContent = `댓글 : ${totalCnt}`;
 	
 	console.log("리스트 받고있니? -> ",list);
 	console.log("pageDto 받고있니? -> ",pageDto);
+	console.log("totalCnt 받고있니? -> ",totalCnt);
 	
 	if(list.length > 0 ){
 		let replyDivStr = '' 
@@ -165,6 +174,7 @@ function replyWrite(){
 	//			*메서드로 짜놓은 fetch 메서드에선 콜백함수를 넣을때 함수의 이름만 넣는다 
 	//			 	뒤에 ()를 포함하면 함수가 바로실행이 되어버림
 	fetchPost('/reply/insert/',obj,replyRes)
+
 }
 
 //답글 등록, 수정, 삭제의 결과를  처리

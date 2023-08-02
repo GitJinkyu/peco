@@ -12,6 +12,7 @@
 	    b.m_id,
 	    b.visitcount,
 	    b.likecount,
+	    b.category,
 	    DECODE(TRUNC(SYSDATE), TRUNC(b.regdate), TO_CHAR(b.regdate, 'HH24:MI:SS'), TO_CHAR(b.regdate, 'YYYY-MM-DD')) AS regdate,
 	    b.updatedate,
 	    m.nickname
@@ -22,6 +23,54 @@
 	ORDER BY 
 	    b.bno DESC 
 	</select>
+	
+	
+	<select id="getBest" resultType="com.peco.vo.BoardVO">
+ 	SELECT 
+	    b.bno,
+	    b.title,
+	    b.content,
+	    b.m_id,
+	    b.visitcount,
+	    b.likecount,
+	    b.category,
+	    CASE
+	        WHEN TRUNC(SYSDATE) = TRUNC(b.regdate) THEN TO_CHAR(b.regdate, 'HH24:MI:SS')
+	        ELSE TO_CHAR(b.regdate, 'YYYY-MM-DD')
+	    END AS regdate,
+	    b.updatedate,
+	    m.nickname,
+	    a.uploadpath || a.uuid || '_' || a.filename AS savePath,
+	    DECODE(a.filetype, 'I', a.uploadpath || 's_' || a.uuid || '_' || a.filename, 'default\NO_image.jpg') AS s_savePath
+	FROM (
+	    SELECT 
+	        b2.bno,
+	        b2.title,
+	        b2.content,
+	        b2.m_id,
+	        b2.visitcount,
+	        b2.likecount,
+	        b2.category,
+	        b2.regdate,
+	        b2.updatedate
+	    FROM 
+	        board b2
+	    WHERE 
+	        b2.regdate >= SYSDATE - 7
+	    ORDER BY 
+	        b2.likecount DESC
+	) b
+	LEFT JOIN
+	    member m ON b.m_id = m.m_id
+	LEFT JOIN
+	    b_img a ON b.bno = a.bno
+	    <![CDATA[
+	WHERE ROWNUM <= 5
+					]]>
+	ORDER BY b.likecount DESC
+	</select>
+	
+	
 	
 	<select id="getFree" resultType="com.peco.vo.BoardVO">
 	<![CDATA[
@@ -128,6 +177,23 @@
 	WHERE 1=1
 	<include refid="criteria"></include>
 	</select>
+	
+	<select id="getFreeTotalCnt" resultType="int">
+	SELECT COUNT(*) 
+	FROM board
+	WHERE 1=1
+	AND category='free'
+	<include refid="criteria"></include>
+	</select>
+	
+	<select id="getHealingTotalCnt" resultType="int">
+	SELECT COUNT(*) 
+	FROM board
+	WHERE 1=1
+	AND category='healing'
+	<include refid="criteria"></include>
+	</select>
+	
 	
 	<delete id="delete">
 	delete from board where bno = #{bno}

@@ -10,5 +10,7 @@ public class ReplyVO {
 	private String nickname;
 	private String regdate;
 	private String updatedate;
+	
+	
 	private int bno;
 }

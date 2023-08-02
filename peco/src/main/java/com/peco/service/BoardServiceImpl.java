@@ -24,6 +24,8 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private FileuploadService service;
 
+	
+	
 	@Override
 	public List<BoardVO> getMain() {
 
@@ -31,7 +33,12 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
-	 
+	@Override
+	public List<BoardVO> getBest() {
+		
+		return mapper.getBest();
+	}
+
 
 	@Override
 	public BoardVO selectOne(int bno) {
@@ -47,7 +54,7 @@ public class BoardServiceImpl implements BoardService {
 		 * 3.pageDto 객체 생성
 		 */
 		List<BoardVO> list = mapper.getFree(cri);
-		int totalCnt = mapper.getTotalCnt(cri);
+		int totalCnt = mapper.getFreeTotalCnt(cri);
 		
 		PageDto pageDto = new PageDto(cri,totalCnt);
 		
@@ -67,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
 		 * 3.pageDto 객체 생성
 		 */
 		List<BoardVO> list = mapper.getHealing(cri);
-		int totalCnt = mapper.getTotalCnt(cri);
+		int totalCnt = mapper.getFreeTotalCnt(cri);
 		
 		PageDto pageDto = new PageDto(cri,totalCnt);
 		
@@ -114,8 +121,6 @@ public class BoardServiceImpl implements BoardService {
 		return res;
 	}
 
-
-
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int edit(BoardVO boardvo, List<MultipartFile> files) throws Exception {
@@ -134,6 +139,17 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Override
+	public int getFreeTotalCnt(Criteria cri) {
+		
+		return mapper.getFreeTotalCnt(cri);
+	}
+	
+	@Override
+	public int getHealingTotalCnt(Criteria cri) {
+		
+		return mapper.getHealingTotalCnt(cri);
+	}
 	
 	@Override
 	public int getLike(int bno) {
@@ -143,7 +159,6 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getLike(bno);
 	}	
 
-
 	@Override
 	public int likeCnt(int bno) {
 		
@@ -151,6 +166,12 @@ public class BoardServiceImpl implements BoardService {
 		
 		return mapper.likeCnt(bno);
 	}
+
+
+
+
+
+
 
 
 	

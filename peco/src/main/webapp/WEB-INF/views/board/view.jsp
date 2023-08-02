@@ -99,16 +99,26 @@
       const animatedIcon = document.getElementById('animated-icon');
       const likebox = document.getElementById('likebox');
 
-      likebox.addEventListener('click', () => {
-        animatedIcon.classList.add('fa-bounce');
+   // 좋아요 버튼 클릭 이벤트 핸들러
+      likebox.addEventListener('click', onClickLike);
 
-        // 애니메이션이 끝난 후, "fa-bounce" 클래스 제거
-        animatedIcon.addEventListener('animationend', () => {
-          animatedIcon.classList.remove('fa-bounce');
-        	getLike()
-        }, { once: true });
-        
-      });
+      // 클릭 이벤트 핸들러 함수
+      function onClickLike() {
+        if (!animatedIcon.classList.contains('fa-bounce')) { // 애니메이션이 실행 중이 아닐 때만 처리
+          animatedIcon.classList.add('fa-bounce');
+
+          // 애니메이션이 끝난 후, "fa-bounce" 클래스 제거
+          animatedIcon.addEventListener('animationend', onAnimationEnd, { once: true });
+        }
+      }
+
+      // 애니메이션이 끝난 후 처리하는 함수
+      function onAnimationEnd() {
+        animatedIcon.classList.remove('fa-bounce');
+        getLike();
+      }
+
+
       /* --------------좋아요버튼 끝-------------- */
 
       btnReplyWrite.addEventListener('click', function () {
@@ -139,20 +149,23 @@
 
     function viewLike(count ) {
       console.log(count );
-
-      let content = '';
+      const likedivElement = document.getElementById('likediv');
+      
+  	  let content = '';
       if (count  > 0) {
         content += ''
-          + '<label for="likebox">                                  '
           + '<div class="main-border-button">                                  '
-          +	'<a class="col-1" id="likebox"><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>'+count+'</a>   '
-      	  + '</div>                          '
-      	  + '</label>                          ';
+          + '	<label for="likebox">                                  '
+          +	'		<a class="col-1" id="likebox"><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>'+count+'</a>   '
+      	  + '	</label>                          '
+      	  + '</div>                          ';
       } else {
         content = '좋아요 안됩니다.';
       }
 
-      likediv.innerHTML = content;
+      likediv.innerHTML = content; 
+      
+      
     }
     /* -------------------좋아요 증가 끝--------------------------- */
     
@@ -269,7 +282,8 @@
     	  });
     	}
 	
-	
+
+
 
     
   </script>
@@ -317,17 +331,17 @@
                       <div class="left-info">
                         <div class="left">
                           <h4>${board.title }</h4>
-                          <span>${board.nickname }</span>
+                          <h4>${board.nickname }</h4>
                         </div>
                         <ul>
-                          <li><i class="fa fa-star"></i> 4.8</li>
-                          <li><i class="fa fa-download"></i> 2.3M</li>
+                          <li><h4>${board.nickname }</h4></li>
+                          <li><h4>${board.nickname }</h4></li>
                         </ul>
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <div class="right-info">
-                        <ul>
+                      <div class="right-info ">
+                        <ul class="d-flex justify-content-around">
 						  <c:if test="${sessionScope.nickName eq board.nickname}">
 						    <li>
 						      <label for="btnEdit"  onclick="postEdit()">
@@ -366,8 +380,9 @@
                       <p>${board.content }</p>
                     </div>
                     
+                    <!-- 좋아요 표시하는곳 -->
                     <div class="col-1 " id="likediv">
-                      <div class="main-border-button">
+                      <div class="main-border-button" >
                       	<label for="likebox">
                         <a class="col-1" id="likebox"><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>
                         ${board.likecount }
@@ -387,6 +402,9 @@
         <br>
         
         <div id="divFileupload">비동기로 js에서 작성한 파일 목록 태그 들어갈 자리</div>
+        
+        <!-- 총댓글수 들어오는곳 -->
+        <div id="totalCnt"></div>
         
         <div class="input-group">
           <span class="input-group-text">답글 작성</span>

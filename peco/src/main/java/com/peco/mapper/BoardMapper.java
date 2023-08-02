@@ -14,6 +14,8 @@ public interface BoardMapper {
 	
 	public List<BoardVO> getMain();
 	
+	public List<BoardVO> getBest();
+	
 	public List<BoardVO> getFree(Criteria cri);
 	
 	public List<BoardVO> getHealing(Criteria cri);
@@ -27,6 +29,10 @@ public interface BoardMapper {
 	public int edit(BoardVO boardvo);
 	
 	public int getTotalCnt(Criteria cri);
+	
+	public int getFreeTotalCnt(Criteria cri);
+	
+	public int getHealingTotalCnt(Criteria cri);
 	
 	public int getLike(@Param("bno") int bno);
 	

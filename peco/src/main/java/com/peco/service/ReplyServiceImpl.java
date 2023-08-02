@@ -34,8 +34,9 @@ public class ReplyServiceImpl implements ReplyService {
 	public int delete(String rno) {
 
 		//댓글 삭제시 Board 테이블의 댓글수를 1감소 시킴
-		ReplyVO vo = mapper.getOne(rno);
-		boardmapper.updateReplyCnt(vo.getBno(), -1);
+		//*무슨 기능인지 기억 안남
+//		ReplyVO vo = mapper.getOne(rno);
+//		boardmapper.updateReplyCnt(vo.getBno(), -1);
 		
 		return mapper.delete(rno);
 	}

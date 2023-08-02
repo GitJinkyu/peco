@@ -61,19 +61,17 @@ https://templatemo.com/tm-579-cyborg-gaming
 </style>
 
 
-
 <script type="text/javascript">
 
-	function requestAction(url, bno){
-		// 폼이름을 확인!
-		searchForm.action = url;
-		searchForm.bno.value = bno;
-		searchForm.submit();
+	//검색 페이징 Action
+	function go(page){
+		document.searchForm.pageNo.value=page;
+		document.searchForm.action = "/peco/board/healing";
+		document.searchForm.submit();
 	}
 	
-</script>
-<script type="text/javascript">
-
+	
+	//상세보기 Action
 	function requestAction(url, bno){
 		// 폼이름을 확인!
 		searchForm.action = url;
@@ -113,7 +111,7 @@ https://templatemo.com/tm-579-cyborg-gaming
 	        <div class="live-stream">
 	            <div class="col-lg-12">
 	              <div class="heading-section">
-	                <h4><em>일상</em> 게시판</h4>
+	                <h4><em>힐링</em> 게시판</h4>
 	              </div>
 	            </div>
 	            <div class="row">

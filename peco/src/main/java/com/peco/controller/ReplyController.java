@@ -43,13 +43,14 @@ public class ReplyController extends CommonRestController{
 		//페이지 블럭을 생성
 		PageDto pageDto = new PageDto(cri, totalCnt) ;
 		
-//		Map<String,Object> map = new HashMap<String, Object>();
-//		map.put("list", list);
-//		map.put("pageDto",pageDto);
-//		
-//		return map;
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pageDto",pageDto);
+		map.put("totalCnt",totalCnt);
 		
-		return responseListMap(list, pageDto);
+		return map;
+		
+		//return responseListMap(list, pageDto);
 	}
 	
 	@GetMapping("/reply/delete/{rno}")
@@ -88,7 +89,17 @@ public class ReplyController extends CommonRestController{
 				
 		}catch (Exception e) {
 			map.put("result","fail");
-			map.put("message",e.getMessage());
+			//map.put("message",e.getMessage());
+			
+			// 에러 메시지를 가져와서 처리
+	        String errorMessage = e.getMessage();
+	        if (errorMessage.contains("REPLYER")) {
+	            map.put("message", "로그인 후 등록가능합니다.");
+	            
+	            
+	        } else {
+	            map.put("message", errorMessage);
+	        }
 			
 		}
 

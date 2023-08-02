@@ -15,6 +15,8 @@ public interface BoardService {
 	
 	public List<BoardVO> getMain();
 	
+	public List<BoardVO> getBest();
+	
 	public List<BoardVO> getFree(Criteria cri, Model model);
 	
 	public List<BoardVO> getHealing(Criteria cri, Model model);
@@ -26,6 +28,10 @@ public interface BoardService {
 	public int edit(BoardVO boardvo, List<MultipartFile> files) throws Exception;
 	
 	public int getTotalCnt(Criteria cri);
+	
+	public int getFreeTotalCnt(Criteria cri);
+	
+	public int getHealingTotalCnt(Criteria cri);
 	
 	public int delete(int bno);
 	

@@ -7,20 +7,13 @@
 <meta charset="UTF-8">
 <title>페이징</title>
 
-<script>
-	function go(page){
-		document.searchForm.pageNo.value=page;
-		document.searchForm.submit();
-	}
-</script>
-
 </head>
 <body>
 
 
 <!-- 페이지 블럭 생성 -->
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-end">
+  <ul class="pagination justify-content-center">
   	
   	<!-- 첫 페이지 -->
   	<li class="page-item ">
