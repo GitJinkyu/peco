@@ -41,7 +41,7 @@
 	    b.updatedate,
 	    m.nickname,
 	    a.uploadpath || a.uuid || '_' || a.filename AS savePath,
-	    DECODE(a.filetype, 'I', a.uploadpath || 's_' || a.uuid || '_' || a.filename, 'default\NO_image.jpg') AS s_savePath
+	    DECODE(a.filetype, 'I', a.uploadpath || 's_' || a.uuid || '_' || a.filename, '/resources/images/default.png') AS s_savePath
 	FROM (
 	    SELECT 
 	        b2.bno,
@@ -216,14 +216,7 @@
 	where bno = #{bno}
 	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	<update id="updateReplyCnt">
     update board set replycnt = replycnt + #{amount} where bno = #{bno}

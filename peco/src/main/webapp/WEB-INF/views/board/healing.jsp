@@ -99,59 +99,55 @@ https://templatemo.com/tm-579-cyborg-gaming
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-	<%@include file = "../common/header.jsp" %>
+	<%@include file = "../common/boardHeader.jsp" %>
   <!-- ***** Header Area End ***** -->
 
-<div class="container">
-  					
-    <div class="row">
-    				  
+<div class="container">				
+    <div class="row">		  
       <div class="col-lg-12">
         <div class="page-content">
+        
+        
+        
+        
 	        <div class="live-stream">
 	            <div class="col-lg-12">
 	              <div class="heading-section">
 	                <h4><em>힐링</em> 게시판</h4>
 	              </div>
 	            </div>
-	            <div class="row">
-
-
-			  <div >
-			    <h1>게시판</h1>
-			  <c:if test="${not empty sessionScope.nickName}">
-			    <p class="lead"><b>${sessionScope.nickName}</b>님 환영합니다👋👋 </p>
-			    <a class="btn btn-lg btn-primary" href="/peco/board/write?pageNo=${pageDto.cri.pageNo }" role="button">글쓰기 &raquo;</a>
-			  </c:if>
-			  </div>
-			  
-			  <p></p>
-			
-			<%@include file = "../common/searchForm.jsp" %>
-			 
-			  <c:forEach var="board" items="${list}">
-				  <div class="list-group w-auto">
-				 
-				    <a onclick="requestAction('/peco/board/view', ${board.bno })" href="#" >
-				      <div >
-				        <div>
-				          <p>작성자 : ${board.nickname }</p>
-				          <h6>${board.title }</h6>
-				        </div>
-				        등록일 : ${board.regdate }
-				      </div>
-				    </a>
-				  </div>
-			  </c:forEach>
-			  
-			  		<!-- 페이지 불러오기 -->
-					<%@include file = "../common/pageNavi.jsp" %>
-			</div>
-			
-			
+	            
+	            
+		        <div class="row">
+					<div >
+				    	<h1>게시판</h1>
+					  <c:if test="${not empty sessionScope.nickName}">
+					    <p class="lead"><b>${sessionScope.nickName}</b>님 환영합니다👋👋 </p>
+					    <a class="btn btn-lg btn-primary" href="/peco/board/write?pageNo=${pageDto.cri.pageNo }" role="button">글쓰기 &raquo;</a>
+					  </c:if>
+				  	</div>
+				</div>
+	
+				<%@include file = "../common/searchForm.jsp" %>
+				<c:forEach var="board" items="${list}">
+						  <div class="list-group w-auto">
+						    <a onclick="requestAction('/peco/board/view', ${board.bno })" href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+						      <div class="d-flex gap-2 w-100 justify-content-between">
+						        <div>
+						          <p class="mb-0 opacity-75">작성자 : ${board.nickname }</p>
+						          <h6 class="mb-0">${board.title }</h6>
+						        </div>
+						        <small class="opacity-50 text-nowrap">등록일 : ${board.regdate }</small>
+						      </div>
+						    </a>
+						  </div>
+				</c:forEach>
+				<!-- 페이지 불러오기 -->
+				<%@include file = "../common/pageNavi.jsp" %>
 			
 			</div>
-          </div> 
+			
+           
 
 	
       

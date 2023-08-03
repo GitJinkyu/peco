@@ -74,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
 		 * 3.pageDto 객체 생성
 		 */
 		List<BoardVO> list = mapper.getHealing(cri);
-		int totalCnt = mapper.getFreeTotalCnt(cri);
+		int totalCnt = mapper.getHealingTotalCnt(cri);
 		
 		PageDto pageDto = new PageDto(cri,totalCnt);
 		

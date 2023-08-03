@@ -116,7 +116,7 @@ https://templatemo.com/tm-579-cyborg-gaming
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-  <%@include file = "../common/header.jsp" %>
+  <%@include file = "../common/boardHeader.jsp" %>
   <!-- ***** Header Area End ***** -->
 
   <div class="container">
@@ -193,7 +193,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                         </div>
                         <ul>
                           <li><a href="#"><i class="fa fa-eye"></i>${f.visitcount} </a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
+                          <li><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"> <h4> ${f.likecount }</h4></i>
                         </ul>
                       </div>
                     </div>

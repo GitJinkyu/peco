@@ -270,7 +270,7 @@ public class BoardController extends CommonRestController{
 		
 		if(res > 0) {
 			
-			rttr.addFlashAttribute("msg","삭제 되었습니다.");
+			//rttr.addFlashAttribute("msg","삭제 되었습니다.");
 			return "redirect:/peco/board/free";
 		}else {
 			model.addAttribute("msg","삭제중 예외가 발생하였습니다.");

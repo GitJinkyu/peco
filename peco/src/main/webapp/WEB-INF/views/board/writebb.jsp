@@ -31,7 +31,7 @@
 </head>
 
 <body>
-<%@include file = "../common/header.jsp" %>
+<%@include file = "../common/boardHeader.jsp" %>
 
 <script type="text/javascript">
 

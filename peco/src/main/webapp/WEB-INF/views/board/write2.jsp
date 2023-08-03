@@ -89,7 +89,7 @@
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-	<%@include file = "../common/header.jsp" %>
+	<%@include file = "../common/boardHeader.jsp" %>
   <!-- ***** Header Area End ***** -->
 
   <div class="container">			

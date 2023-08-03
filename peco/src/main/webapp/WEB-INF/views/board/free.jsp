@@ -66,7 +66,7 @@ https://templatemo.com/tm-579-cyborg-gaming
 	//검색 페이징 Action
 	function go(page){
 		document.searchForm.pageNo.value=page;
-		//document.searchForm.action = "/peco/board/free";
+		document.searchForm.action = "/peco/board/free";
 		document.searchForm.submit();
 	}
 	
@@ -99,7 +99,7 @@ https://templatemo.com/tm-579-cyborg-gaming
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-	<%@include file = "../common/header.jsp" %>
+	<%@include file = "../common/boardHeader.jsp" %>
   <!-- ***** Header Area End ***** -->
 
 <div class="container">				
