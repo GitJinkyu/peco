@@ -156,6 +156,9 @@ https://templatemo.com/tm-579-cyborg-gaming
 		                    </a>
 		                </div> 
 				  </div>
+				  <span><i class="fa fa-check"></i> ${b.nickname}</span>
+				  <span><i class="fa fa-check"></i> ${b.nickname}</span>
+				  <span><i class="fa fa-check"></i> ${b.nickname}</span>
 			</c:forEach>
             <!------------------- 베스트 게시글  끝-------------------->
 
@@ -179,13 +182,12 @@ https://templatemo.com/tm-579-cyborg-gaming
             <div class="row">
             
             <!-- -------일상 게시글 시작---------- -->
-            <c:forEach var="f" items="${Free}" varStatus="loop">
-            <c:if test="${loop.index < 8}">
+            <c:forEach var="f" items="${Free}">
               <div class="col-lg-3 col-sm-6">
                 <div class="item">
                   <div class="thumb">
             		<a onclick="requestAction('/peco/board/view', ${f.bno })">
-                    <img src="/display?fileName=${f.s_savePath}" alt="">
+                    <img src="/resources/assets/images/stream-05.jpg" alt="">
                     <div class="hover-effect">
                       <div class="content">
                         <div class="live">
@@ -208,7 +210,6 @@ https://templatemo.com/tm-579-cyborg-gaming
                   </div> 
                 </div>
               </div>
-              </c:if>
           	</c:forEach>
           	<!-- -------게시글 끝---------- -->
           	
@@ -225,12 +226,11 @@ https://templatemo.com/tm-579-cyborg-gaming
             </div>
             <div class="row">
             
-            <c:forEach var="h" items="${Healing}" varStatus="loop">
-            <c:if test="${loop.index < 8}">
+            <c:forEach var="h" items="${Healing}">
               <div class="col-lg-3 col-sm-6">
                 <div class="item">
                   <div class="thumb">
-                    <img src="/display?fileName=${h.s_savePath}" alt="">
+                    <img src="/resources/assets/images/stream-05.jpg" alt="">
                     <div class="hover-effect">
                       <div class="content">
                         <div class="live">
@@ -252,7 +252,6 @@ https://templatemo.com/tm-579-cyborg-gaming
                   </div> 
                 </div>
               </div>
-            </c:if>
             </c:forEach>
 
             </div>
