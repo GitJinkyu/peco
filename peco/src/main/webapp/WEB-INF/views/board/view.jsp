@@ -102,22 +102,26 @@
    // 좋아요 버튼 클릭 이벤트 핸들러
       likebox.addEventListener('click', onClickLike);
 
-      // 클릭 이벤트 핸들러 함수
       function onClickLike() {
-        if (!animatedIcon.classList.contains('fa-bounce')) { // 애니메이션이 실행 중이 아닐 때만 처리
-          animatedIcon.classList.add('fa-bounce');
+    	  if (!animatedIcon.classList.contains('fa-bounce')) { // 애니메이션이 실행 중이 아닐 때만 처리
+    	    animatedIcon.classList.add('fa-bounce');
 
-          // 애니메이션이 끝난 후, "fa-bounce" 클래스 제거
-          animatedIcon.addEventListener('animationend', onAnimationEnd, { once: true });
-        }
-      }
+    	    // 애니메이션이 끝난 후, "fa-bounce" 클래스 제거한 뒤 화면에서 좋아요 숫자를 업데이트합니다.
+    	    animatedIcon.addEventListener('animationend', () => {
+    	      animatedIcon.classList.remove('fa-bounce');
+    	      updateLikeCountOnScreen();
+    	    }, { once: true });
+    	  }
+    	}
 
-      // 애니메이션이 끝난 후 처리하는 함수
-      function onAnimationEnd() {
-        animatedIcon.classList.remove('fa-bounce');
-        getLike();
-      }
-
+    	function updateLikeCountOnScreen() {
+    	  const likecntDiv = document.getElementById('likecntDiv');
+    	  const currentCount = parseInt(likecntDiv.textContent);
+    	  if (!isNaN(currentCount)) {
+    	    // 현재 숫자에 1을 더하고 화면에서 업데이트합니다.
+    	    viewLike(currentCount + 1);
+    	  }
+    	}
 
       /* --------------좋아요버튼 끝-------------- */
 
@@ -147,26 +151,18 @@
       }
     }
 
-    function viewLike(count ) {
-      console.log(count );
-      const likedivElement = document.getElementById('likediv');
-      
-  	  let content = '';
-      if (count  > 0) {
-        content += ''
-          + '<div class="main-border-button">                                  '
-          + '	<label for="likebox">                                  '
-          +	'		<a class="col-1" id="likebox"><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>'+count+'</a>   '
-      	  + '	</label>                          '
-      	  + '</div>                          ';
-      } else {
-        content = '좋아요 안됩니다.';
-      }
-
-      likediv.innerHTML = content; 
+    function viewLike(count) {
+    	  const likecntDiv = document.getElementById('likecntDiv');
+    	  if (count > 0) {
+    	    likecntDiv.textContent = count;
+    	  } else {
+    	    // 좋아요 숫자가 0보다 작을 때 처리하는 부분입니다.
+    	    likecntDiv.textContent = '0';
+    	  }
+    	}
       
       
-    }
+    
     /* -------------------좋아요 증가 끝--------------------------- */
     
     
@@ -385,7 +381,7 @@
                       <div class="main-border-button" >
                       	<label for="likebox">
                         <a class="col-1" id="likebox"><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;"></i>
-                        ${board.likecount }
+                        <div id="likecntDiv">${board.likecount }</div>
                         </a>
                         </label>
                       </div>

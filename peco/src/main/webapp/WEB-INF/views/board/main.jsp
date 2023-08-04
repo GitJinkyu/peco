@@ -230,6 +230,7 @@ https://templatemo.com/tm-579-cyborg-gaming
               <div class="col-lg-3 col-sm-6">
                 <div class="item">
                   <div class="thumb">
+                  <a onclick="requestAction('/peco/board/view', ${h.bno })">
                     <img src="/display?fileName=${h.s_savePath}" alt="">
                     <div class="hover-effect">
                       <div class="content">
@@ -238,7 +239,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                         </div>
                         <ul>
                           <li><a href="#"><i class="fa fa-eye"></i>${h.visitcount}</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
+                          <li><i id="animated-icon" class="fa-regular fa-thumbs-up fa-lg" style="color: #ffa200;">${h.likecount }</i>
                         </ul>
                       </div>
                     </div>
@@ -249,6 +250,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                     </div>
                     <span><i class="fa fa-check"></i> ${h.nickname}</span>
                     <h4>${h.title}</h4>
+                  </a>
                   </div> 
                 </div>
               </div>
